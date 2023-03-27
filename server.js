@@ -7,10 +7,10 @@ const server = express();
 server.use(bodyParser.json());
 
 const db = mysql.createConnection({
-    host:"localhost",
-    user:'root',
-    password:'',
-    database:'cuisine'
+    host:"sql113.epizy.com",
+    user:'epiz_33884810',
+    password:'Ub8tJRPd322eloO',
+    database:'epiz_33884810_cuisine'
 });
 
 db.connect();
