@@ -233,3 +233,17 @@ server.post("/insert/feedback", (req, res) => {
 function delFeedback(number){
   db.query('DELETE FROM avis WHERE id_plat='+number+'');
 }
+
+//selection de nom du plat dans base de donnée
+
+server.get("/select/plat/:id_plat", (req, res) => {
+  let id_plat = req.params.id_plat;
+  var sql = `SELECT * FROM plat WHERE id_plat=${id_plat}`;
+  db.query(sql, function (error, result) {
+    if (error) {
+      console.log("Error Connecting to DB");
+    } else {
+      res.send( {result} );
+    }
+  });
+});
