@@ -217,6 +217,7 @@ server.post("/insert/feedback", (req, res) => {
     temps: req.body.min,
     dificulte: req.body.dificulte,
     etoile: req.body.rating,
+    nom_plat:req.body.nom_plat
   };
   delFeedback(req.body.id_plat);
   let sql = "INSERT INTO avis SET ?";
