@@ -11,6 +11,10 @@ const db = mysql.createConnection({
     user:'freedb_i-cuisine',
     password:'N4QMCCwmb4zUC*P',
     database:'freedb_dbcuisine'
+    // host:'localhost',
+    // user:'root',
+    // password:'',
+    // database:'cuisine'
 });
 
 db.connect();
@@ -195,11 +199,25 @@ server.post("/person/add", (req, res) => {
   });
 });
 
-//selection user in db
+//selection user in db by email (login)
 
 server.get("/user/:email", (req, res) => {
   let email = req.params.email;
   var sql = `SELECT * FROM user WHERE email='${email}'`;
+  db.query(sql, function (error, result) {
+    if (!result) {
+      res.send({ status: false, message: "compte introuvable" });
+    } else {
+      res.send({ status: true, message: "user connected successfully", data: result });
+    }
+  });
+});
+
+//selection user in db by id_user (login)
+
+server.get("/userId/:id_user", (req, res) => {
+  let id_user = req.params.id_user;
+  var sql = `SELECT * FROM user WHERE id_user='${id_user}'`;
   db.query(sql, function (error, result) {
     if (!result) {
       res.send({ status: false, message: "compte introuvable" });
