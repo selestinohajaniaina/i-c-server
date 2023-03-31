@@ -135,6 +135,20 @@ server.get("/select/plat/:id_plat", (req, res) => {
   });
 });
 
+//selection de tout les avis du db
+
+server.get("/selectAvis", (req, res) => {
+  let id_plat = req.params.id_plat;
+  var sql = `SELECT * FROM avis ORDER BY nom_plat `;
+  db.query(sql, function (error, result) {
+    if (error) {
+      console.log("Error Connecting to DB");
+    } else {
+      res.send( {result} );
+    }
+  });
+});
+
 //selection des produits dans un plat 
 
 server.get("/select/detail/:id_plat", (req, res) => {
@@ -263,6 +277,28 @@ server.get("/select/plat/:id_plat", (req, res) => {
       console.log("Error Connecting to DB");
     } else {
       res.send( {result} );
+    }
+  });
+});
+
+//Update the Records
+ 
+server.put("/update/:id", (req, res) => {
+  let sql =
+    "UPDATE user SET email='" +
+    req.body.email +
+    "', username='" +
+    req.body.username +
+    "',password='" +
+    req.body.password +
+    "'  WHERE id_user=" +
+    req.params.id;
+
+  db.query(sql, (error, result) => {
+    if (error) {
+      res.send({ status: false, message: "user Updated Failed" });
+    } else {
+      res.send({ status: true, message: "user Updated successfully" });
     }
   });
 });
