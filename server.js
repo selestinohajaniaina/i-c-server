@@ -155,6 +155,34 @@ server.get("/selectAvis", (req, res) => {
   });
 });
 
+//selection un avis du plat dans db par :id_plat
+
+server.get("/selectRecette/:id_plat", (req, res) => {
+  let id_plat = req.params.id_plat;
+  var sql = `SELECT * FROM avis WHERE id_plat=${id_plat} `;
+  db.query(sql, function (error, result) {
+    if (error) {
+      console.log("Error Connecting to DB");
+    } else {
+      res.send( {result} );
+    }
+  });
+});
+
+//selection description du plat dans db par :id_plat
+
+server.get("/description/:id_plat", (req, res) => {
+  let id_plat = req.params.id_plat;
+  var sql = `SELECT * FROM description WHERE id_plat=${id_plat} `;
+  db.query(sql, function (error, result) {
+    if (error) {
+      console.log("Error Connecting to DB");
+    } else {
+      res.send( {result} );
+    }
+  });
+});
+
 //selection des produits dans un plat 
 
 server.get("/select/detail/:id_plat", (req, res) => {
