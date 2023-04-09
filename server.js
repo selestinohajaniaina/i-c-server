@@ -336,3 +336,48 @@ server.put("/update/:id", (req, res) => {
     }
   });
 });
+
+//insertion d'un plat dans la list des favories
+
+server.post("/insert/favory/", (req, res) => {
+  let detailsPro = {
+    id_plat: req.body.id_plat,
+    id_user: req.body.id_user,
+    nom_plat: req.body.nom_plat,
+  };
+  let sql = "INSERT INTO favory SET ?";
+  db.query(sql, detailsPro, (error) => {
+    if (error) {
+      res.send({ status: false, message: "favory inserted Failed" });
+    } else {
+      res.send({ status: true, message: "favory inserted successfully" });
+    }
+  });
+});
+
+//supression d'un plat dans la list des favories
+
+server.delete("/delete/favory/:id_plat/:id_user", (req, res) => {
+  let sql = "DELETE FROM favory WHERE id_plat=" + req.params.id_plat + " AND id_user=" +req.params.id_user;
+  let query = db.query(sql, (error) => {
+    if (error) {
+      res.send({ status: false, message: "favory Deleted Failed" });
+    } else {
+      res.send({ status: true, message: "favory Deleted successfully" });
+    }
+  });
+});
+
+//selection du plat dans la liste des favories
+
+server.get("/select/favory/:id_plat/:id_user", (req, res) => {
+  let id_plat = req.params.id_plat;
+  var sql = `SELECT * FROM favory WHERE id_plat=${id_plat}`;
+  db.query(sql, function (error, result) {
+    if (error) {
+      console.log("Error Connecting to DB");
+    } else {
+      res.send( {result} );
+    }
+  });
+});
