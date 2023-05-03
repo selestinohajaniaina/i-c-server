@@ -32,7 +32,9 @@ db.connect();
 
 server.use(cors({
   origin:"*"
-}))
+}));
+
+server.use(express.static('img'));
 
 server.listen(3000,console.log('server start on 3000'))
 
@@ -380,4 +382,38 @@ server.get("/select/favory/:id_plat/:id_user", (req, res) => {
       res.send( {result} );
     }
   });
+});
+
+
+// move image
+// route for upload single file
+server.post("/upload-file", async (req, res) => {
+  try {
+    if (!req.files) {
+      res.send({
+        status: false,
+        message: "No file uploaded",
+      });
+    } else {
+      //Use the name of the input field (i.e. "file") to retrieve the uploaded file
+      let file = req.files.file;
+      // let filename = req.body.filename;
+
+      //Use the mv() method to place the file in the upload directory (i.e. "uploads")
+      file.mv("img/" + file);
+
+      //send response
+      res.send({
+        status: true,
+        message: "File is uploaded",
+        data: {
+          name: file.name,
+          mimetype: file.mimetype,
+          size: file.size,
+        },
+      });
+    }
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
