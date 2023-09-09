@@ -7,20 +7,20 @@ const server = express();
 server.use(bodyParser.json());
 
 const db = mysql.createConnection({
-    // host:"sql.freedb.tech",
-    // user:'freedb_i-cuisine',
-    // password:'N4QMCCwmb4zUC*P',
-    // database:'freedb_dbcuisine'
+    host:"sql.freedb.tech",
+    user:'freedb_i-cuisine',
+    password:'N4QMCCwmb4zUC*P',
+    database:'freedb_dbcuisine'
     
     // host:"127.0.0.1",
     // user:'root',
     // password:'',
     // database:'cuisine'
 
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'cuisine'
+    // host:'localhost',
+    // user:'root',
+    // password:'',
+    // database:'cuisine'
 });
 
 db.connect();
